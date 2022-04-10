@@ -5,11 +5,13 @@
 npm install
 
 // develop
+// 不会产生跨域问题
 npm run dev
 ```
 
 ## Build
 ```bush
+// 会产生跨域问题
 npm run build
 ```
 
