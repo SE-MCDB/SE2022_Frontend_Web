@@ -40,12 +40,12 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8000',//'http://114.115.168.211:8000',
-        changeOrigin:true,
+        target: 'http://127.0.0.1:8000', // 'http://127.0.0.1:8000',
+        changeOrigin: true
       }
     },
     host: '0.0.0.0',
-    port: 8200,
+    port: 8200
     // disableHostCheck: true
   },
   transpileDependencies: []

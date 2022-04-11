@@ -24,7 +24,7 @@ export default {
   props: {
     userAvatar: {
       type: String,
-      default: 'http://114.115.168.211:8000/api/images/default_user_icon.jpg'
+      default: 'http://127.0.0.1:8000/api/images/default_user_icon.jpg'
     },
     messageUnreadCount: {
       type: Number,

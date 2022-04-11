@@ -179,7 +179,7 @@
                 <div v-else v-for="item in data" :key="item.id">
                   <Row>
                     <i-col span="2">
-                      <Avatar :src="['http://114.115.168.211:8000/api/' + item.icon]" style="width: 100%;height: 100%" />
+                      <Avatar :src="['http://127.0.0.1:8000/api/' + item.icon]" style="width: 100%;height: 100%" />
                     </i-col>
                     <i-col span="5">
                       <div class="user-name">
@@ -236,7 +236,7 @@
                 <div v-else v-for="item in data" :key="item.id">
                   <Row>
                     <i-col span="2">
-                      <Avatar :src="['http://114.115.168.211:8000/api/' + item.icon]" style="width: 100%;height: 100%" />
+                      <Avatar :src="['http://127.0.0.1:8000/api/' + item.icon]" style="width: 100%;height: 100%" />
                     </i-col>
                     <i-col span="5">
                       <div class="user-name">
@@ -346,10 +346,10 @@
 </template>
 
 <script>
-import {modifyOrg, modifyEmail, myInterpretation, modifyPassword, fanList, followerList, unfollow, myKnowledge, getUserInfo, uploadAvatar } from '@/api/user'
+import { modifyOrg, modifyEmail, myInterpretation, modifyPassword, fanList, followerList, unfollow, myKnowledge, getUserInfo, uploadAvatar } from '@/api/user'
 import { getErrModalOptions, getLocalTime } from '@/libs/util.js'
-import { queryProjects, deleteProject } from '@/api/project'
-import { InterpretationIdReq, favorInterpretationList}from '@/api/paper'
+import { queryProjects } from '@/api/project'
+import { InterpretationIdReq, favorInterpretationList } from '@/api/paper'
 // import KnowledgeCard from '@/view/micro-knowledge/knowledge-card'
 import PaperCard from '@/view/paper/paper-card'
 // import ProjectForm from '@/view/sponsor-project/project-form'
@@ -375,7 +375,7 @@ export default {
       totalLike: 102,
       totalFollow: 10,
       totalPub: 11,
-      userpic:'',
+      userpic: '',
       avatarUrl: '',
       isOther: false, // 是否为他人的主页
       showDetail: false,
@@ -421,7 +421,7 @@ export default {
       },
       modifyOrgRule: {
         newOrg: [
-          { required: true, message: '请填写组织', trigger: 'blur' },
+          { required: true, message: '请填写组织', trigger: 'blur' }
         ]
       },
       pageIndex: 1,
@@ -502,7 +502,7 @@ export default {
   },
 
   mounted () {
-    this.showModify=true
+    this.showModify = true
     getUserInfo().then(res => {
       console.log(res)
       this.$store.commit('setUserProfile', res.data)
@@ -510,14 +510,13 @@ export default {
       this.$Modal.error(getErrModalOptions(error))
     })
     this.init()
-    this.showModify=false
+    this.showModify = false
   },
 
   methods: {
-    ToText(HTML)
-    {
-      var input = HTML;
-      return input.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');
+    ToText (HTML) {
+      var input = HTML
+      return input.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, '').replace(/<[^>]+?>/g, '').replace(/\s+/g, ' ').replace(/ /g, ' ').replace(/>/g, ' ')
     },
 
     init: async function () {
@@ -540,10 +539,9 @@ export default {
         this.totalLike = this.$store.state.user.userTotalLike
         this.totalFollow = this.$store.state.user.userTotalFan
         getUserInfo(this.$route.params.id).then(res => {
-           this.totalPub =res.data.total_post
-           this.userpic='http://114.115.168.211:8000/api/'+res.data.userpic
-           console.log(res.data.userpic)
-
+          this.totalPub = res.data.total_post
+          this.userpic = 'http://127.0.0.1:8000/api/' + res.data.userpic
+          console.log(res.data.userpic)
         }).catch(error => {
           this.$Modal.error(getErrModalOptions(error))
         })
@@ -556,13 +554,13 @@ export default {
           this.userEmail = res.data.email
           this.totalLike = res.data.total_like
           this.totalFollow = res.data.total_fan
-          this.totalPub =res.data.total_post
-          this.userpic='http://114.115.168.211:8000/api/'+res.data.userpic
+          this.totalPub = res.data.total_post
+          this.userpic = 'http://127.0.0.1:8000/api/' + res.data.userpic
         }).catch(error => {
           this.$Modal.error(getErrModalOptions(error))
         })
       }
-       this.changeTab(this.tabName)
+      this.changeTab(this.tabName)
     },
 
     loadFollower: function () {
@@ -607,7 +605,7 @@ export default {
               favor_num: item.favor_num,
               like_num: item.like_num,
               id: item.id,
-              type:  1
+              type: 1
             }
           })
           this.totalCnt = res.data.total_count
@@ -620,27 +618,27 @@ export default {
       }
     },
 
-    loadInterpretation: function(){
+    loadInterpretation: function () {
       this.loading = true
-       myInterpretation(this.$route.params.id, {
-          page: this.pageIndex,
-          page_size: this.pageSize
-        }).then(res => {
-          this.data = res.data.models.map(item => {
-            return {
-              title: item.title,
-              content: item.content,
-              favor_num: item.favor_num,
-              like_num: item.like_num,
-              id: item.id,
-              type: 0
-            }
-          })
-          this.totalCnt = res.data.total_count
-          this.loading = false
-        }).catch(error => {
-          this.$Modal.error(getErrModalOptions(error))
+      myInterpretation(this.$route.params.id, {
+        page: this.pageIndex,
+        page_size: this.pageSize
+      }).then(res => {
+        this.data = res.data.models.map(item => {
+          return {
+            title: item.title,
+            content: item.content,
+            favor_num: item.favor_num,
+            like_num: item.like_num,
+            id: item.id,
+            type: 0
+          }
         })
+        this.totalCnt = res.data.total_count
+        this.loading = false
+      }).catch(error => {
+        this.$Modal.error(getErrModalOptions(error))
+      })
     },
 
     loadProjects: function (pindex = this.pindex) {
@@ -693,9 +691,9 @@ export default {
             favorNumber: item.favor_num,
             commentNumber: item.commentNum,
             displayType: 0,
-            title:item.title,
+            title: item.title,
             source: item.source,
-            citation: item.citation,
+            citation: item.citation
           }
         })
         this.loading = false
@@ -716,67 +714,67 @@ export default {
     },
 
     handleSubmit: function (name) {
-         if (name === 'modifyPassword') {
-            modifyPassword({
-              'old-password': this.modifyPassword.oldPassword,
-              'new-password': this.modifyPassword.newPassword2
-            }).then(res => {
-              this.modifyPassword = {
-                oldPassword: '',
-                newPassword1: '',
-                newPassword2: ''
-              } // 清空之前的表单
-              this.$Message.info('成功修改')
-            }).catch(error => {
-              if (error.response.data.code === 403) {
-                this.$Message.error('旧密码错误, 请确认旧密码填写一致')
-              } else {
-                this.$Modal.error(getErrModalOptions(error))
-              }
-            })
-          } else if(name=='interpretation'){
-            const params ={
-              title: this.post.title,
-              content: this.post.content,
-              citation: this.post.citation,
-              source: this.post.source,
-              published_year: this.post.publishedYear
-            }
-            console.log(this.post.id)
-           InterpretationIdReq(this.post.id, this.postType , 'put', params).then(res => {
-              this.$Message.info('成功修改')
-              this.pageIndex = 1
-              this.loadPost()
-            }).catch(error => {
-              console.log(error)
-              this.$Modal.error(getErrModalOptions(error))
-            })
-          } else if(name =='modifyEmail'){
-            modifyEmail({
-              'old-email': '11@qq.com',
-              'new-email': this.modifyEmail.newEmail
-            }).then(res => {
-              this.modifyEmail = {
-                oldEmail: '',
-                newEmail: '',
-              }
-              this.$Message.info('成功修改')
-            }).catch(error => {
-                this.$Modal.error(getErrModalOptions(error))
-            })
-          } else if(name== 'modifyOrg'){
-            modifyOrg({
-              'organization': this.modifyOrg.newOrg
-            }).then(res => {
-              this.modifyOrg = {
-                oldOrg: '',
-                newOrg: '',
-              } // 清空之前的表单
-              this.$Message.info('成功修改')
-            }).catch(error => {
-                this.$Modal.error(getErrModalOptions(error))
-            })
+      if (name === 'modifyPassword') {
+        modifyPassword({
+          'old-password': this.modifyPassword.oldPassword,
+          'new-password': this.modifyPassword.newPassword2
+        }).then(res => {
+          this.modifyPassword = {
+            oldPassword: '',
+            newPassword1: '',
+            newPassword2: ''
+          } // 清空之前的表单
+          this.$Message.info('成功修改')
+        }).catch(error => {
+          if (error.response.data.code === 403) {
+            this.$Message.error('旧密码错误, 请确认旧密码填写一致')
+          } else {
+            this.$Modal.error(getErrModalOptions(error))
           }
+        })
+      } else if (name === 'interpretation') {
+        const params = {
+          title: this.post.title,
+          content: this.post.content,
+          citation: this.post.citation,
+          source: this.post.source,
+          published_year: this.post.publishedYear
+        }
+        console.log(this.post.id)
+        InterpretationIdReq(this.post.id, this.postType, 'put', params).then(res => {
+          this.$Message.info('成功修改')
+          this.pageIndex = 1
+          this.loadPost()
+        }).catch(error => {
+          console.log(error)
+          this.$Modal.error(getErrModalOptions(error))
+        })
+      } else if (name === 'modifyEmail') {
+        modifyEmail({
+          'old-email': '11@qq.com',
+          'new-email': this.modifyEmail.newEmail
+        }).then(res => {
+          this.modifyEmail = {
+            oldEmail: '',
+            newEmail: ''
+          }
+          this.$Message.info('成功修改')
+        }).catch(error => {
+          this.$Modal.error(getErrModalOptions(error))
+        })
+      } else if (name === 'modifyOrg') {
+        modifyOrg({
+          'organization': this.modifyOrg.newOrg
+        }).then(res => {
+          this.modifyOrg = {
+            oldOrg: '',
+            newOrg: ''
+          } // 清空之前的表单
+          this.$Message.info('成功修改')
+        }).catch(error => {
+          this.$Modal.error(getErrModalOptions(error))
+        })
+      }
     },
 
     changePage: function (page) {
@@ -789,7 +787,7 @@ export default {
         this.loadPost()
       } else if (this.tabName === 'myFavor') {
         this.loadFavor()
-      } else if(this.tabName === 'myInterpretation'){
+      } else if (this.tabName === 'myInterpretation') {
         this.loadInterpretation()
       }
     },
@@ -816,7 +814,7 @@ export default {
         this.loadPost()
       } else if (this.tabName === 'myFavor') {
         this.loadFavor()
-      }  else if(this.tabName === 'myInterpretation'){
+      } else if (this.tabName === 'myInterpretation') {
         this.loadInterpretation()
       }
     },
@@ -828,7 +826,7 @@ export default {
     handleModifyPost: function (id, type) {
       InterpretationIdReq(id, type, 'get').then(res => {
         this.post = {
-          id:id,
+          id: id,
           kind: type,
           source: res.data.source,
           citation: res.data.citation,
@@ -838,9 +836,8 @@ export default {
         }
         this.postType = type
         this.showModify = true
-       this.$refs.editor1.setHtml(this.post.content)
+        this.$refs.editor1.setHtml(this.post.content)
       })
-
     },
 
     handleModify: function (id, type) {
@@ -859,17 +856,17 @@ export default {
         title: '确定删除该发布',
         content: '请注意该操作不可逆',
         onOk () {
-            InterpretationIdReq(id, type, 'delete').then(res => {
-              vm.$Message.info('成功删除')
-              vm.pageIndex = 1
-              vm.totalPub-=1
-              vm.loadPost()
-            }).catch(err => {
-              console.log(err)
-              vm.$Modal.error(getErrModalOptions(err))
-            })
-          }
-        })
+          InterpretationIdReq(id, type, 'delete').then(res => {
+            vm.$Message.info('成功删除')
+            vm.pageIndex = 1
+            vm.totalPub -= 1
+            vm.loadPost()
+          }).catch(err => {
+            console.log(err)
+            vm.$Modal.error(getErrModalOptions(err))
+          })
+        }
+      })
     },
 
     handleProjectModify: function (index) {

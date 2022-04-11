@@ -52,12 +52,12 @@
           </Row>
         </Modal>
       </div>
-      <p slot="extra">{{ kind === 1 ? '论文解读' : '批注' }}发布于: {{ createAt }}</p>    
+      <p slot="extra">{{ kind === 1 ? '论文解读' : '批注' }}发布于: {{ createAt }}</p>
         <Row>
-          解读对象: <a :href='source'> {{citation}} </a>-------{{publishedYear}}年          
+          解读对象: <a :href='source'> {{citation}} </a>-------{{publishedYear}}年
         </Row>
         <Row>
-          标题: {{title}}          
+          标题: {{title}}
         </Row>
         <br>
         <br>
@@ -68,7 +68,7 @@
         <Tag v-for="(tag, index) in tags" :key="index" class="sysTopics">{{ tag.name }}</Tag>
       </Row>
       </div>
-      <br />   
+      <br />
       <template v-if="displayType === 0">
         <Row>
           <i-col span="12">
@@ -102,7 +102,7 @@
                 </i-button>-->
             </ButtonGroup>
           </i-col>
-        </Row> 
+        </Row>
         <Card v-if='showComment' style="margin-top: 10px;">
           <comment v-bind='comments'></comment>
         </Card>
@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { collectInterpretation, likeInterpretation,InterpretationIdReq ,getInterpretationComments} from '@/api/paper.js'
+import { collectInterpretation, likeInterpretation, InterpretationIdReq, getInterpretationComments } from '@/api/paper.js'
 import { follow, unfollow, getUserInfo } from '@/api/user'
 import { getErrModalOptions, getLocalTime } from '@/libs/util'
 import editor from '@/components/editor/editor.vue'
@@ -146,12 +146,12 @@ export default {
       }
     },
 
-    title:{
+    title: {
       type: String,
       default: '引用'
     },
-    
-    kind: { 
+
+    kind: {
       type: Number,
       default: 0
     },
@@ -193,11 +193,11 @@ export default {
       default: 0
     },
 
-    commentNumber:{
+    commentNumber: {
       type: Number,
       default: 0
     },
-    
+
     favorNumber: {
       type: Number,
       default: 0
@@ -208,7 +208,7 @@ export default {
       default: 0
     },
 
-    source: { 
+    source: {
       type: String,
       default: 'qq'
     },
@@ -229,9 +229,9 @@ export default {
         return []
       }
     },
-    userpic:{
+    userpic: {
       type: String,
-      default: 'http://114.115.168.211:8000/api/images/default_user_icon.jpg'
+      default: 'http://127.0.0.1:8000/api/images/default_user_icon.jpg'
     }
   },
 
@@ -250,7 +250,7 @@ export default {
       userInfo: {},
       htmlTitle: this.title,
       followText: '',
-      paperid:'1',
+      paperid: '1'
     }
   },
 
@@ -259,8 +259,8 @@ export default {
       return this.like ? '#0084ff' : '#747b8b'
     },
 
-    paperId:function(){
-       return this.paperid
+    paperId: function () {
+      return this.paperid
     },
 
     collectType: function () {
@@ -272,10 +272,10 @@ export default {
     },
 
     citeStyle: function () {
-      let style=""
-      style+= this.cite ? 'margin-left:100px;' : ''
-      style+=' word-break: break-all'
-      return style 
+      let style = ''
+      style += this.cite ? 'margin-left:100px;' : ''
+      style += ' word-break: break-all'
+      return style
     },
 
     citeMessage: function () {
@@ -286,17 +286,16 @@ export default {
       return 'pop' + this.$props.id
     },
 
-     word:function(){
-       return 'word-break: break-all'
-     } 
+    word: function () {
+      return 'word-break: break-all'
+    }
 
   },
 
   methods: {
-   ToText(HTML)
-    {
-      var input = HTML;
-      return input.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');  
+    ToText (HTML) {
+      var input = HTML
+      return input.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, '').replace(/<[^>]+?>/g, '').replace(/\s+/g, ' ').replace(/ /g, ' ').replace(/>/g, ' ')
     },
 
     onLike: function () {
@@ -313,26 +312,26 @@ export default {
         this.$Modal.error(getErrModalOptions(error))
       })
     },
-    
-    download: function() {
-    let a = document.createElement('a')
-    a.href =`/api/download/Interpretation/${this.id}`
-		a.setAttribute('download', this.title)
-    a.click(); 
+
+    download: function () {
+      let a = document.createElement('a')
+      a.href = `/api/download/Interpretation/${this.id}`
+      a.setAttribute('download', this.title)
+      a.click()
     },
 
-    onOut:function(){
-       let str = new Blob([this.citation+'  '+this.source], {type: 'text/plain;charset=utf-8'});
-       saveAs(str, `解读对象.txt`);
+    onOut: function () {
+      let str = new Blob([this.citation + '  ' + this.source], { type: 'text/plain;charset=utf-8' })
+      saveAs(str, `解读对象.txt`)
     },
 
-    onOut3:function(){
-      this.paperid='pdfDom'
+    onOut3: function () {
+      this.paperid = 'pdfDom'
       console.log('1')
     },
 
-    onOut4:function(){
-      this.paperid='1'
+    onOut4: function () {
+      this.paperid = '1'
       console.log('2')
     },
 
@@ -343,8 +342,7 @@ export default {
       } else {
         this.totalFavor -= 1
       }
-     collectInterpretation
-     ('post', this.$props.id, this.collect ? 'favor' : 'unfavor').then(res => {
+      collectInterpretation('post', this.$props.id, this.collect ? 'favor' : 'unfavor').then(res => {
         const info = this.collect ? '成功收藏' : '成功取消收藏'
         this.$Message.info(info)
       }).catch(error => {
@@ -386,7 +384,7 @@ export default {
         to: x.to_user ? x.to_user.username : 0,
         toId: x.to_user ? x.to_user.id : '',
         inputShow: false,
-        headImg: 'http://114.115.168.211:8000/api/'+x.userpic,
+        headImg: 'http://127.0.0.1:8000/api/' + x.userpic,
         parent_comment_id: x.parent_comment_id,
         reply: []
       }))
@@ -405,11 +403,11 @@ export default {
     getComments: async function () {
       let username = ''
       let userid = ''
-      let userpic=''
+      let userpic = ''
       await getUserInfo().then(res => {
         userid = res.data.id
         username = res.data.username
-        userpic ='http://114.115.168.211:8000/api/'+res.data.userpic
+        userpic = 'http://127.0.0.1:8000/api/' + res.data.userpic
       }).catch(error => {
         this.$Modal.error(getErrModalOptions(error))
       })
@@ -436,7 +434,7 @@ export default {
       getUserInfo(this.$props.creator.id).then(res => {
         this.showUserControl = true
         this.userInfo = res.data
-        this.userpic ='http://114.115.168.211:8000/api/'+res.data.userpic
+        this.userpic = 'http://127.0.0.1:8000/api/' + res.data.userpic
       }).catch(error => {
         this.$Modal.error(getErrModalOptions(error))
       })
