@@ -40,7 +40,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8000', // 'http://127.0.0.1:8000',
+        target: 'http://127.0.0.1:8000', // 'http://114.115.168.211:8000'<---这是服务器的ip，不是局域网ip
         changeOrigin: true
       }
     },
