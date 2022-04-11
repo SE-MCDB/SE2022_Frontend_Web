@@ -1,21 +1,22 @@
-## Getting started
+<h1 align="center">SE2022 Frontend Manager</h1>
 
-```bush
+<div align="center">waiting badge</div>
+
+## Usage
+
+```bash
 // install dependencies
 npm install
 
 // develop
-// 不会产生跨域问题
 npm run dev
 ```
 
-## Build
-```bush
-// 会产生跨域问题
+Build
+```bash
 npm run build
 ```
 
-## License
-[MIT](http://opensource.org/licenses/MIT)
+## Reference
 
-Copyright (c) 2016-present, TalkingData
+TalkingData???
