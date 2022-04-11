@@ -6,15 +6,15 @@
 
 ```bash
 // install dependencies
-npm install
+$ npm install
 
 // develop
-npm run dev
+$ npm run dev
 ```
 
 Build
 ```bash
-npm run build
+$ npm run build
 ```
 
 ## Reference
