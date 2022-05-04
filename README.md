@@ -1,22 +1,34 @@
-<h1 align="center">SE2022 Frontend Manager</h1>
+<h1 align="center">SE2022 Frontend Web</h1>
 
-<div align="center">waiting badge</div>
+<div align="center">
 
-## Usage
+[![](https://img.shields.io/badge/frontend-Vue.js-7B8ED0)](https://vuejs.org/)  [![](https://img.shields.io/badge/license-MIT-9cf)](./LICENSE)
+</div>
+
+## Description
+
+This is a Web Frontend code of the `PaperDaily` project based on [`Vue.js`](https://vuejs.org)
+
+## Quickstart
+
+1. Install dependencies
 
 ```bash
-// install dependencies
 $ npm install
+```
 
-// develop
+2. Run
+
+```
 $ npm run dev
 ```
 
-Build
+3. Build
+
 ```bash
 $ npm run build
 ```
 
-## Reference
+## License
 
-TalkingData???
+[MIT](./LICENSE)
