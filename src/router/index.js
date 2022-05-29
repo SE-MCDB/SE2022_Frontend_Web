@@ -1,16 +1,19 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import routes from './routers'
+
 // import store from '@/store'
 import iView from 'iview'
 import { getToken, setTitle } from '@/libs/util' // setToken canTurnTo
 import config from '@/config'
+
+import Router from 'vue-router'
+import routes from './routers'
 const { homeName } = config
 
 Vue.use(Router)
 const router = new Router({
   routes,
-  mode: 'history'
+  // mode: 'history'
+  mode: 'hash'
 })
 const LOGIN_PAGE_NAME = 'login'
 
@@ -60,9 +63,9 @@ router.afterEach(to => {
   window.scrollTo(0, 0)
 })
 
-/*const originalPush = VueRouter.prototype.push
+/* const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch((err) => err)
-}*/
+} */
 
 export default router
