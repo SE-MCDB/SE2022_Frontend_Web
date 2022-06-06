@@ -7,7 +7,7 @@
 
 ## Description
 
-This is a Web Frontend code of the `PaperDaily` project based on [`Vue.js`](https://vuejs.org) & [`View UI`](https://iviewui.com).
+This is the web frontend code of the `PaperDaily` project based on [`Vue.js`](https://vuejs.org) & [`View UI`](https://iviewui.com).
 
 ## Quick Start
 
@@ -19,7 +19,7 @@ $ npm install
 
 2. Run
 
-```
+```bash
 $ npm run dev
 ```
 
