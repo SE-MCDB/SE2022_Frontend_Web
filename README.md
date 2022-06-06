@@ -9,7 +9,7 @@
 
 This is a Web Frontend code of the `PaperDaily` project based on [`Vue.js`](https://vuejs.org) & [`View UI`](https://iviewui.com).
 
-## Quickstart
+## Quick Start
 
 1. Install dependencies
 
