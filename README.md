@@ -9,7 +9,7 @@
 
 ## Description
 
-This is the web frontend code of the `PaperDaily` project based on [`Vue.js`](https://vuejs.org) & [`View UI`](https://iviewui.com).
+This is the web frontend code of the `PaperDaily` project based on [`Vue.js`](https://vuejs.org) & [`iView`](http://v3.iviewui.com/).
 
 ## Quick Start
 
